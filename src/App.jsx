@@ -1,16 +1,22 @@
 import { useState } from 'react'
 
-const Input = ({label,value,onChange}) => {
-console.log("Input value :",{value});
+const Input = ({ label, value, onChange }) => {
+  //console.log("Input value :", { value });
   return (
     <>
-     <label>{label}</label>
-     <input type="text"
-          value={value}
-          onChange={onChange}
-        />
+      <label>{label}</label>
+      <input type="text"
+        value={value}
+        onChange={onChange}
+      />
     </>
-    
+
+  )
+}
+
+const SectionHeader = ({ title }) => {
+  return (
+    <><h3>{title}</h3></>
   )
 }
 
@@ -25,8 +31,8 @@ const App = () => {
     <div>
       <h1>Cv Builder App</h1>
       <div>
-        <h3>Personal Information</h3>
-        <Input label="First Name" value={firstName}  onChange={handleFirstNameChange}/>
+        <SectionHeader title="Personal Information"/>
+        <Input label="First Name" value={firstName} onChange={handleFirstNameChange} />
         <label>Last Name</label>
         <input type="text" />
         <label>Contact Number</label>
@@ -35,7 +41,7 @@ const App = () => {
         <input type="text" />
         <label>LinkedIn Link</label>
         <input type="text" />
-        
+
       </div>
       <div>
         <hr />
