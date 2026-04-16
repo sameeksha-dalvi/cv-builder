@@ -22,31 +22,51 @@ const SectionHeader = ({ title }) => {
 
 const App = () => {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [contactNum, setContactNum] = useState("");
+  const [githubUrl, setGithubUrl] = useState("");
+  const [linkedInUrl, setLinkedInUrl] = useState("");
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value)
+  }
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value)
+  }
+
+  const handleContactNumChange = (event) => {
+    setContactNum(event.target.value)
+  }
+
+  const handleGithubUrlChange = (event) => {
+    setGithubUrl(event.target.value)
+  }
+
+  const handleLinkedInUrlChange = (event) => {
+    setLinkedInUrl(event.target.value)
   }
 
   return (
     <div>
       <h1>Cv Builder App</h1>
       <div>
-        <SectionHeader title="Personal Information"/>
+        <SectionHeader title="Personal Information" />
         <Input label="First Name" value={firstName} onChange={handleFirstNameChange} />
-        <label>Last Name</label>
-        <input type="text" />
-        <label>Contact Number</label>
-        <input type="tel" />
-        <label>Github Link</label>
-        <input type="text" />
-        <label>LinkedIn Link</label>
-        <input type="text" />
+        <Input label="Last Name" value={lastName} onChange={handleLastNameChange} />
+        <Input label="Contact Number" value={contactNum} onChange={handleContactNumChange} />
+        <Input label="Github URL" value={githubUrl} onChange={handleGithubUrlChange} />
+        <Input label="LinkedIn URL" value={linkedInUrl} onChange={handleLinkedInUrlChange} />
 
       </div>
       <div>
         <hr />
         <h3>Preview</h3>
         <p>{firstName}</p>
+        <p>{lastName}</p>
+        <p>{contactNum}</p>
+        <p>{githubUrl}</p>
+        <p>{linkedInUrl}</p>
       </div>
     </div>
   )
