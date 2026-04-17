@@ -61,12 +61,16 @@ const App = () => {
 
         </div>
         <div className="preview-section">
-          <h3>Preview</h3>
-          <p>{firstName}</p>
-          <p>{lastName}</p>
-          <p>{contactNum}</p>
-          <p>{githubUrl}</p>
-          <p>{linkedInUrl}</p>
+          <div className='preview-header'>
+            <h4>{firstName}</h4>
+            <h4>{lastName}</h4>
+          </div>
+          <div className='preview-contact'>
+            <p>{contactNum}</p>
+            <p>{githubUrl}</p>
+            <p>{linkedInUrl}</p>
+          </div>
+
         </div>
 
       </div>
