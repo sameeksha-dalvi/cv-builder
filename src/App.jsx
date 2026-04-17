@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import './App.css'
 const Input = ({ label, value, onChange }) => {
   //console.log("Input value :", { value });
   return (
@@ -49,25 +49,28 @@ const App = () => {
 
   return (
     <div>
-      <h1>Cv Builder App</h1>
-      <div>
-        <SectionHeader title="Personal Information" />
-        <Input label="First Name" value={firstName} onChange={handleFirstNameChange} />
-        <Input label="Last Name" value={lastName} onChange={handleLastNameChange} />
-        <Input label="Contact Number" value={contactNum} onChange={handleContactNumChange} />
-        <Input label="Github URL" value={githubUrl} onChange={handleGithubUrlChange} />
-        <Input label="LinkedIn URL" value={linkedInUrl} onChange={handleLinkedInUrlChange} />
+      <h1>CV Builder App</h1>
+      <div className="container">
+        <div className="form-section">
+          <SectionHeader title="Personal Information" />
+          <Input label="First Name" value={firstName} onChange={handleFirstNameChange} />
+          <Input label="Last Name" value={lastName} onChange={handleLastNameChange} />
+          <Input label="Contact Number" value={contactNum} onChange={handleContactNumChange} />
+          <Input label="Github URL" value={githubUrl} onChange={handleGithubUrlChange} />
+          <Input label="LinkedIn URL" value={linkedInUrl} onChange={handleLinkedInUrlChange} />
+
+        </div>
+        <div className="preview-section">
+          <h3>Preview</h3>
+          <p>{firstName}</p>
+          <p>{lastName}</p>
+          <p>{contactNum}</p>
+          <p>{githubUrl}</p>
+          <p>{linkedInUrl}</p>
+        </div>
 
       </div>
-      <div>
-        <hr />
-        <h3>Preview</h3>
-        <p>{firstName}</p>
-        <p>{lastName}</p>
-        <p>{contactNum}</p>
-        <p>{githubUrl}</p>
-        <p>{linkedInUrl}</p>
-      </div>
+
     </div>
   )
 }
