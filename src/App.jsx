@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-const Input = ({ label, value, onChange }) => {
+const Input = ({ label, name, value, onChange, type = "text" }) => {
   //console.log("Input value :", { value });
   return (
     <>
       <label>{label}</label>
-      <input type="text"
+      <input
+        type={type}
+        name={name}
         value={value}
         onChange={onChange}
       />
@@ -27,6 +29,14 @@ const App = () => {
   const [githubUrl, setGithubUrl] = useState("");
   const [linkedInUrl, setLinkedInUrl] = useState("");
 
+  const [education, setEducation] = useState({
+    school: "",
+    degree: "",
+    location: "",
+    startDate: "",
+    endDate: "",
+  });
+
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value)
   }
@@ -47,6 +57,16 @@ const App = () => {
     setLinkedInUrl(event.target.value)
   }
 
+  const handleEducationChange = (e) => {
+    console.log("handleEducationChange ", e)
+    const { name, value } = e.target;
+
+    setEducation((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <h1>CV Builder App</h1>
@@ -58,7 +78,13 @@ const App = () => {
           <Input label="Contact Number" value={contactNum} onChange={handleContactNumChange} />
           <Input label="Github URL" value={githubUrl} onChange={handleGithubUrlChange} />
           <Input label="LinkedIn URL" value={linkedInUrl} onChange={handleLinkedInUrlChange} />
-
+          <SectionHeader title="Education" />
+          <Input label="School / University Name" name="school" value={education.school} onChange={handleEducationChange} />
+          <Input label="Degree" name="degree" value={education.degree} onChange={handleEducationChange} />
+          <Input label="Location" name="location" value={education.location} onChange={handleEducationChange} />
+          <Input label="Start Date" name="startDate" type="date" value={education.startDate} onChange={handleEducationChange} />
+          <Input label="End Date" name="endDate" type="date" value={education.endDate} onChange={handleEducationChange} />
+          
         </div>
         <div className="preview-section">
           <div className='preview-header'>
