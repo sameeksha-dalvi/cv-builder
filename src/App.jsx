@@ -23,11 +23,14 @@ const SectionHeader = ({ title }) => {
 }
 
 const App = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [contactNum, setContactNum] = useState("");
-  const [githubUrl, setGithubUrl] = useState("");
-  const [linkedInUrl, setLinkedInUrl] = useState("");
+
+  const [personalInfo, setPersonalInfo] = useState({
+    firstName: "",
+    lastName: "",
+    contactNum: "",
+    githubUrl: "",
+    linkedInUrl: "",
+  });
 
   const [education, setEducation] = useState({
     school: "",
@@ -37,25 +40,14 @@ const App = () => {
     endDate: "",
   });
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value)
-  }
+  const handlePersonalInfoChange = (e) => {
+    const { name, value } = e.target;
 
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value)
-  }
-
-  const handleContactNumChange = (event) => {
-    setContactNum(event.target.value)
-  }
-
-  const handleGithubUrlChange = (event) => {
-    setGithubUrl(event.target.value)
-  }
-
-  const handleLinkedInUrlChange = (event) => {
-    setLinkedInUrl(event.target.value)
-  }
+    setPersonalInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleEducationChange = (e) => {
     console.log("handleEducationChange ", e)
@@ -73,28 +65,77 @@ const App = () => {
       <div className="container">
         <div className="form-section">
           <SectionHeader title="Personal Information" />
-          <Input label="First Name" value={firstName} onChange={handleFirstNameChange} />
-          <Input label="Last Name" value={lastName} onChange={handleLastNameChange} />
-          <Input label="Contact Number" value={contactNum} onChange={handleContactNumChange} />
-          <Input label="Github URL" value={githubUrl} onChange={handleGithubUrlChange} />
-          <Input label="LinkedIn URL" value={linkedInUrl} onChange={handleLinkedInUrlChange} />
+          <Input
+            label="First Name"
+            name="firstName"
+            value={personalInfo.firstName}
+            onChange={handlePersonalInfoChange} />
+          <Input
+            label="Last Name"
+            name="lastName"
+            value={personalInfo.lastName}
+            onChange={handlePersonalInfoChange}
+          />
+          <Input
+            label="Contact Number"
+            name="contactNum"
+            value={personalInfo.contactNum}
+            onChange={handlePersonalInfoChange}
+          />
+          <Input
+            label="Github URL"
+            name="githubUrl"
+            value={personalInfo.githubUrl}
+            onChange={handlePersonalInfoChange}
+          />
+          <Input
+            label="LinkedIn URL"
+            name="linkedInUrl"
+            value={personalInfo.linkedInUrl}
+            onChange={handlePersonalInfoChange}
+          />
           <SectionHeader title="Education" />
-          <Input label="School / University Name" name="school" value={education.school} onChange={handleEducationChange} />
-          <Input label="Degree" name="degree" value={education.degree} onChange={handleEducationChange} />
-          <Input label="Location" name="location" value={education.location} onChange={handleEducationChange} />
-          <Input label="Start Date" name="startDate" type="date" value={education.startDate} onChange={handleEducationChange} />
-          <Input label="End Date" name="endDate" type="date" value={education.endDate} onChange={handleEducationChange} />
-          
+          <Input
+            label="School / University Name"
+            name="school"
+            value={education.school}
+            onChange={handleEducationChange}
+          />
+          <Input
+            label="Degree"
+            name="degree"
+            value={education.degree}
+            onChange={handleEducationChange}
+          />
+          <Input
+            label="Location"
+            name="location"
+            value={education.location}
+            onChange={handleEducationChange}
+          />
+          <Input
+            label="Start Date"
+            name="startDate"
+            type="date"
+            value={education.startDate}
+            onChange={handleEducationChange} />
+          <Input
+            label="End Date"
+            name="endDate"
+            type="date"
+            value={education.endDate}
+            onChange={handleEducationChange} />
+
         </div>
         <div className="preview-section">
           <div className='preview-header'>
-            <h4>{firstName}</h4>
-            <h4>{lastName}</h4>
+            <h4>{personalInfo.firstName}</h4>
+            <h4>{personalInfo.lastName}</h4>
           </div>
           <div className='preview-contact'>
-            <p>{contactNum}</p>
-            <p>{githubUrl}</p>
-            <p>{linkedInUrl}</p>
+            <p>{personalInfo.contactNum}</p>
+            <p>{personalInfo.githubUrl}</p>
+            <p>{personalInfo.linkedInUrl}</p>
           </div>
 
         </div>
