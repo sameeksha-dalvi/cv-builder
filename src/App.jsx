@@ -40,6 +40,15 @@ const App = () => {
     endDate: "",
   });
 
+  const [experience, setExperience] = useState({
+    company: "",
+    role: "",
+    location: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+  });
+
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
 
@@ -50,10 +59,19 @@ const App = () => {
   };
 
   const handleEducationChange = (e) => {
-    console.log("handleEducationChange ", e)
+    //console.log("handleEducationChange ", e)
     const { name, value } = e.target;
 
     setEducation((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleExperienceChange = (e) => {
+    const { name, value } = e.target;
+
+    setExperience((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -145,7 +163,43 @@ const App = () => {
             type="date"
             value={education.endDate}
             onChange={handleEducationChange} />
+          <SectionHeader title="Experience" />
+          <Input
+            label="Company"
+            name="company"
+            value={experience.company}
+            onChange={handleExperienceChange} />
+          <Input
+            label="Role"
+            name="role"
+            value={experience.role} 
+            onChange={handleExperienceChange} />
 
+          <Input
+            label="Location"
+            name="location"
+            value={experience.location}
+            onChange={handleExperienceChange} />
+
+          <Input
+            label="Start Date"
+            name="startDate"
+            type="date"
+            value={experience.startDate}
+            onChange={handleExperienceChange} />
+
+          <Input
+            label="End Date"
+            name="endDate"
+            type="date"
+            value={experience.endDate}
+            onChange={handleExperienceChange} />
+
+          <Input
+            label="Description"
+            name="description"
+            value={experience.description}
+            onChange={handleExperienceChange} />
         </div>
         <div className="preview-section">
           <div className='preview-header'>
