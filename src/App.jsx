@@ -97,6 +97,8 @@ const App = () => {
 
     return `${formattedStart} - ${formattedEnd}`;
   };
+
+  const hasEducationData = education.school || education.degree;
   return (
     <div>
       <h1>CV Builder App</h1>
@@ -172,7 +174,7 @@ const App = () => {
           <Input
             label="Role"
             name="role"
-            value={experience.role} 
+            value={experience.role}
             onChange={handleExperienceChange} />
 
           <Input
@@ -211,22 +213,24 @@ const App = () => {
             <p>{personalInfo.githubUrl}</p>
             <p>{personalInfo.linkedInUrl}</p>
           </div>
-          <div className='preview-education'>
-            <h4 className='preview-section-header'>Education</h4>
-            <div className='preview-ed-data'>
-              <div className='preview-ed-left'>
-                <p className='preview-ed-school'>{education.school}</p>
-                <p className='preview-ed-degree'>{education.degree}</p>
+          {hasEducationData && (
+            <div className='preview-education'>
+              <h4 className='preview-section-header'>Education</h4>
+              <div className='preview-ed-data'>
+                <div className='preview-ed-left'>
+                  <p className='preview-ed-school'>{education.school}</p>
+                  <p className='preview-ed-degree'>{education.degree}</p>
+                </div>
+                <div className='preview-ed-right'>
+                  <p>
+                    {formatDateRange(education.startDate, education.endDate)}
+                    {education.location && ` | ${education.location}`}
+                  </p>
+                </div>
               </div>
-              <div className='preview-ed-right'>
-                <p>
-                  {formatDateRange(education.startDate, education.endDate)}
-                  {education.location && ` | ${education.location}`}
-                </p>
-              </div>
-            </div>
 
-          </div>
+            </div>
+          )}
 
         </div>
 
