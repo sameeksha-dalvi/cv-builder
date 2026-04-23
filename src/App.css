@@ -172,3 +172,39 @@ p {
   color: var(--color-text);
   margin: 0;
 }
+
+.preview-exp-data {
+  display: flex;
+  margin-top: 12px;
+}
+
+.preview-exp-left {
+  flex: 1;
+}
+
+.preview-exp-right {
+  display: flex;
+  gap: 5px;
+}
+
+.preview-exp-right > p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.preview-exp-role {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+.preview-exp-company {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin: 2px 0 6px 0;
+}
+
+.preview-exp-desc {
+  font-size: 13px;
+  margin: 0;
+}

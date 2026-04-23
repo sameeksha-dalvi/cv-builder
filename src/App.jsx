@@ -99,6 +99,9 @@ const App = () => {
   };
 
   const hasEducationData = education.school || education.degree;
+
+  const hasExperienceData = experience.company || experience.role;
+
   return (
     <div>
       <h1>CV Builder App</h1>
@@ -229,6 +232,28 @@ const App = () => {
                 </div>
               </div>
 
+            </div>
+          )}
+          {hasExperienceData && (
+            <div className='preview-experience'>
+              <h4 className='preview-section-header'>Experience</h4>
+
+              <div className='preview-exp-data'>
+                <div className='preview-exp-left'>
+                  <p className='preview-exp-role'>{experience.role}</p>
+                  <p className='preview-exp-company'>{experience.company}</p>
+                  {experience.description && (
+                    <p className='preview-exp-desc'>{experience.description}</p>
+                  )}
+                </div>
+
+                <div className='preview-exp-right'>
+                  <p>
+                    {formatDateRange(experience.startDate, experience.endDate)}
+                    {experience.location && ` | ${experience.location}`}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
