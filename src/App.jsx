@@ -22,6 +22,14 @@ const SectionHeader = ({ title }) => {
   )
 }
 
+const ClearButton = ({ onClick }) => {
+  return (
+    <button className="clear-btn" onClick={onClick}>
+      Clear
+    </button>
+  );
+};
+
 const App = () => {
 
   const [personalInfo, setPersonalInfo] = useState({
@@ -113,7 +121,21 @@ const App = () => {
       <h1>CV Builder App</h1>
       <div className="container">
         <div className="form-section">
-          <SectionHeader title="Personal Information" />
+          <div className="section-header">
+            <SectionHeader title="Personal Information" />
+            <ClearButton
+              onClick={() =>
+                setPersonalInfo({
+                  firstName: "",
+                  lastName: "",
+                  contactNum: "",
+                  githubUrl: "",
+                  linkedInUrl: "",
+                })
+              }
+            />
+          </div>
+
           <Input
             label="First Name"
             name="firstName"
@@ -143,7 +165,21 @@ const App = () => {
             value={personalInfo.linkedInUrl}
             onChange={handlePersonalInfoChange}
           />
-          <SectionHeader title="Education" />
+          <div className="section-header">
+            <SectionHeader title="Education" />
+            <ClearButton
+              onClick={() =>
+                setEducation({
+                  school: "",
+                  degree: "",
+                  location: "",
+                  startDate: "",
+                  endDate: "",
+                })
+              }
+            />
+          </div>
+
           <Input
             label="School / University Name"
             name="school"
@@ -174,7 +210,22 @@ const App = () => {
             type="date"
             value={education.endDate}
             onChange={handleEducationChange} />
-          <SectionHeader title="Experience" />
+          <div className="section-header">
+            <SectionHeader title="Experience" />
+            <ClearButton
+              onClick={() =>
+                setExperience({
+                  company: "",
+                  role: "",
+                  location: "",
+                  startDate: "",
+                  endDate: "",
+                  description: "",
+                })
+              }
+            />
+          </div>
+
           <Input
             label="Company"
             name="company"
@@ -211,7 +262,10 @@ const App = () => {
             name="description"
             value={experience.description}
             onChange={handleExperienceChange} />
-          <SectionHeader title="Skills" />
+          <div className="section-header">
+            <SectionHeader title="Skills" />
+            <ClearButton onClick={() => setSkills("")} />
+          </div>
 
           <Input
             label="Skills (comma separated)"

@@ -227,3 +227,23 @@ p {
   border-radius: 6px;
   background-color: var(--color-surface);
 }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-btn {
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--color-text-light);
+}
+
+.clear-btn:hover {
+  background-color: var(--color-surface);
+}
