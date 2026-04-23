@@ -49,6 +49,8 @@ const App = () => {
     description: "",
   });
 
+  const [skills, setSkills] = useState("");
+
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
 
@@ -101,6 +103,10 @@ const App = () => {
   const hasEducationData = education.school || education.degree;
 
   const hasExperienceData = experience.company || experience.role;
+
+  const skillsList = skills.split(",").map(skill => skill.trim()).filter(Boolean);
+
+  const hasSkills = skillsList.length > 0;
 
   return (
     <div>
@@ -205,6 +211,14 @@ const App = () => {
             name="description"
             value={experience.description}
             onChange={handleExperienceChange} />
+          <SectionHeader title="Skills" />
+
+          <Input
+            label="Skills (comma separated)"
+            name="skills"
+            value={skills}
+            onChange={(e) => setSkills(e.target.value)}
+          />
         </div>
         <div className="preview-section">
           <div className='preview-header'>
@@ -256,7 +270,19 @@ const App = () => {
               </div>
             </div>
           )}
+          {hasSkills && (
+            <div className="preview-skills">
+              <h4 className="preview-section-header">Skills</h4>
 
+              <div className="preview-skills-list">
+                {skillsList.map((skill, index) => (
+                  <span key={index} className="preview-skill">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
       </div>
