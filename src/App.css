@@ -258,7 +258,7 @@ p {
   margin-bottom: 10px;
 }
 
-.education-item {
+.section-item {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -268,7 +268,7 @@ p {
 }
 
 
-.education-actions {
+.section-actions {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 5px;

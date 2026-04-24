@@ -51,14 +51,16 @@ const App = () => {
     },
   ]);
 
-  const [experience, setExperience] = useState({
-    company: "",
-    role: "",
-    location: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-  });
+  const [experienceList, setExperienceList] = useState([
+    {
+      company: "",
+      role: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+    },
+  ]);
 
   const [skills, setSkills] = useState("");
 
@@ -82,13 +84,13 @@ const App = () => {
     setEducationList(updatedList);
   };
 
-  const handleExperienceChange = (e) => {
+  const handleExperienceChange = (index, e) => {
     const { name, value } = e.target;
 
-    setExperience((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const updatedList = [...experienceList];
+    updatedList[index][name] = value;
+
+    setExperienceList(updatedList);
   };
 
   const formatDate = (date) => {
@@ -117,7 +119,9 @@ const App = () => {
     (edu) => edu.school || edu.degree
   );
 
-  const hasExperienceData = experience.company || experience.role;
+  const hasExperienceData = experienceList.some(
+    (exp) => exp.company || exp.role
+  );
 
   const skillsList = skills.split(",").map(skill => skill.trim()).filter(Boolean);
 
@@ -190,8 +194,8 @@ const App = () => {
           </div>
 
           {educationList.map((edu, index) => (
-            <div key={index} className="education-item">
-              <div className="education-actions">
+            <div key={index} className="section-item">
+              <div className="section-actions">
                 {educationList.length > 1 && (
                   <button
                     className="remove-btn"
@@ -281,56 +285,117 @@ const App = () => {
             <SectionHeader title="Experience" />
             <ClearButton
               onClick={() =>
-                setExperience({
+                setExperienceList([
+                  {
+                    company: "",
+                    role: "",
+                    location: "",
+                    startDate: "",
+                    endDate: "",
+                    description: "",
+                  },
+                ])
+              }
+            />
+          </div>
+
+          {experienceList.map((exp, index) => (
+            <div key={index} className="section-item">
+
+              <div className="section-actions">
+                {experienceList.length > 1 && (
+                  <button
+                    className="remove-btn"
+                    onClick={() => {
+                      let newList = [...experienceList];
+                      newList.splice(index, 1);// remove the clicked item
+
+                      if (newList.length === 0) {
+                        newList = [
+                          {
+                            company: "",
+                            role: "",
+                            location: "",
+                            startDate: "",
+                            endDate: "",
+                            description: "",
+                          },
+                        ];
+                      }
+
+                      setExperienceList(newList);
+                    }}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+
+              <Input
+                label="Company"
+                name="company"
+                value={exp.company}
+                onChange={(e) => handleExperienceChange(index, e)}
+              />
+
+              <Input
+                label="Role"
+                name="role"
+                value={exp.role}
+                onChange={(e) => handleExperienceChange(index, e)}
+              />
+
+              <Input
+                label="Location"
+                name="location"
+                value={exp.location}
+                onChange={(e) => handleExperienceChange(index, e)}
+              />
+
+              <div className="date-section">
+                <Input
+                  label="Start Date"
+                  name="startDate"
+                  type="date"
+                  value={exp.startDate}
+                  onChange={(e) => handleExperienceChange(index, e)}
+                />
+
+                <Input
+                  label="End Date"
+                  name="endDate"
+                  type="date"
+                  value={exp.endDate}
+                  onChange={(e) => handleExperienceChange(index, e)}
+                />
+              </div>
+
+              <Input
+                label="Description"
+                name="description"
+                value={exp.description}
+                onChange={(e) => handleExperienceChange(index, e)}
+              />
+            </div>
+          ))}
+          <button
+            className="add-btn"
+            onClick={() =>
+              setExperienceList([
+                ...experienceList,
+                {
                   company: "",
                   role: "",
                   location: "",
                   startDate: "",
                   endDate: "",
                   description: "",
-                })
-              }
-            />
-          </div>
-
-          <Input
-            label="Company"
-            name="company"
-            value={experience.company}
-            onChange={handleExperienceChange} />
-          <Input
-            label="Role"
-            name="role"
-            value={experience.role}
-            onChange={handleExperienceChange} />
-
-          <Input
-            label="Location"
-            name="location"
-            value={experience.location}
-            onChange={handleExperienceChange} />
-          <div className="date-section">
-            <Input
-              label="Start Date"
-              name="startDate"
-              type="date"
-              value={experience.startDate}
-              onChange={handleExperienceChange} />
-
-            <Input
-              label="End Date"
-              name="endDate"
-              type="date"
-              value={experience.endDate}
-              onChange={handleExperienceChange} />
-          </div>
-
-
-          <Input
-            label="Description"
-            name="description"
-            value={experience.description}
-            onChange={handleExperienceChange} />
+                },
+              ])
+            }
+          >
+            Add Experience
+          </button>
           <div className="section-header">
             <SectionHeader title="Skills" />
             <ClearButton onClick={() => setSkills("")} />
@@ -379,23 +444,28 @@ const App = () => {
           {hasExperienceData && (
             <div className='preview-experience'>
               <h4 className='preview-section-header'>Experience</h4>
+              {experienceList.map((exp, index) => (
+                (exp.company || exp.role) && (
+                  <div key={index} className="preview-exp-data">
+                    <div className="preview-exp-left">
+                      <p className="preview-exp-role">{exp.role}</p>
+                      <p className="preview-exp-company">{exp.company}</p>
 
-              <div className='preview-exp-data'>
-                <div className='preview-exp-left'>
-                  <p className='preview-exp-role'>{experience.role}</p>
-                  <p className='preview-exp-company'>{experience.company}</p>
-                  {experience.description && (
-                    <p className='preview-exp-desc'>{experience.description}</p>
-                  )}
-                </div>
+                      {exp.description && (
+                        <p className="preview-exp-desc">{exp.description}</p>
+                      )}
+                    </div>
 
-                <div className='preview-exp-right'>
-                  <p>
-                    {formatDateRange(experience.startDate, experience.endDate)}
-                    {experience.location && ` | ${experience.location}`}
-                  </p>
-                </div>
-              </div>
+                    <div className="preview-exp-right">
+                      <p>
+                        {formatDateRange(exp.startDate, exp.endDate)}
+                        {exp.location && ` | ${exp.location}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              ))}
+
             </div>
           )}
           {hasSkills && (
