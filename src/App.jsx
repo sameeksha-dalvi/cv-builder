@@ -25,7 +25,7 @@ const SectionHeader = ({ title }) => {
 const ClearButton = ({ onClick }) => {
   return (
     <button className="clear-btn" onClick={onClick}>
-      Clear
+      Clear All
     </button>
   );
 };
@@ -71,7 +71,7 @@ const App = () => {
     }));
   };
 
- 
+
 
   const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
@@ -112,7 +112,7 @@ const App = () => {
     return `${formattedStart} - ${formattedEnd}`;
   };
 
- 
+
   const hasEducationData = educationList.some(
     (edu) => edu.school || edu.degree
   );
@@ -191,6 +191,35 @@ const App = () => {
 
           {educationList.map((edu, index) => (
             <div key={index} className="education-item">
+              <div className="education-actions">
+                {educationList.length > 1 && (
+                  <button
+                    className="remove-btn"
+                    onClick={() => {
+                      let newList = [...educationList];
+
+                      newList.splice(index, 1); // remove the clicked item
+
+                      if (newList.length === 0) {
+                        newList = [
+                          {
+                            school: "",
+                            degree: "",
+                            location: "",
+                            startDate: "",
+                            endDate: "",
+                          },
+                        ];
+                      }
+
+                      setEducationList(newList);
+                    }}
+                  >
+                    Remove
+                  </button>
+                )}
+
+              </div>
               <Input
                 label="School / University Name"
                 name="school"
@@ -232,6 +261,7 @@ const App = () => {
             </div>
           ))}
           <button
+            className="add-btn"
             onClick={() =>
               setEducationList([
                 ...educationList,
