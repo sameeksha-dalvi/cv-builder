@@ -187,7 +187,7 @@ p {
   gap: 5px;
 }
 
-.preview-exp-right > p {
+.preview-exp-right>p {
   font-size: 12px;
   margin: 0;
 }
@@ -209,7 +209,9 @@ p {
   margin: 0;
 }
 
-.preview-skills,.preview-experience,.preview-education {
+.preview-skills,
+.preview-experience,
+.preview-education {
   margin-top: 20px;
 }
 
@@ -246,4 +248,28 @@ p {
 
 .clear-btn:hover {
   background-color: var(--color-surface);
+}
+
+.date-section {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.education-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
 }

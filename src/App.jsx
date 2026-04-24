@@ -40,13 +40,16 @@ const App = () => {
     linkedInUrl: "",
   });
 
-  const [education, setEducation] = useState({
-    school: "",
-    degree: "",
-    location: "",
-    startDate: "",
-    endDate: "",
-  });
+
+  const [educationList, setEducationList] = useState([
+    {
+      school: "",
+      degree: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+    },
+  ]);
 
   const [experience, setExperience] = useState({
     company: "",
@@ -68,14 +71,15 @@ const App = () => {
     }));
   };
 
-  const handleEducationChange = (e) => {
-    //console.log("handleEducationChange ", e)
+ 
+
+  const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
 
-    setEducation((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const updatedList = [...educationList];
+    updatedList[index][name] = value;
+
+    setEducationList(updatedList);
   };
 
   const handleExperienceChange = (e) => {
@@ -108,7 +112,10 @@ const App = () => {
     return `${formattedStart} - ${formattedEnd}`;
   };
 
-  const hasEducationData = education.school || education.degree;
+ 
+  const hasEducationData = educationList.some(
+    (edu) => edu.school || edu.degree
+  );
 
   const hasExperienceData = experience.company || experience.role;
 
@@ -169,47 +176,77 @@ const App = () => {
             <SectionHeader title="Education" />
             <ClearButton
               onClick={() =>
-                setEducation({
+                setEducationList([
+                  {
+                    school: "",
+                    degree: "",
+                    location: "",
+                    startDate: "",
+                    endDate: "",
+                  },
+                ])
+              }
+            />
+          </div>
+
+          {educationList.map((edu, index) => (
+            <div key={index} className="education-item">
+              <Input
+                label="School / University Name"
+                name="school"
+                value={edu.school}
+                onChange={(e) => handleEducationChange(index, e)}
+              />
+
+              <Input
+                label="Degree"
+                name="degree"
+                value={edu.degree}
+                onChange={(e) => handleEducationChange(index, e)}
+              />
+
+              <Input
+                label="Location"
+                name="location"
+                value={edu.location}
+                onChange={(e) => handleEducationChange(index, e)}
+              />
+              <div className="date-section">
+                <Input
+                  label="Start Date"
+                  name="startDate"
+                  type="date"
+                  value={edu.startDate}
+                  onChange={(e) => handleEducationChange(index, e)}
+                />
+
+                <Input
+                  label="End Date"
+                  name="endDate"
+                  type="date"
+                  value={edu.endDate}
+                  onChange={(e) => handleEducationChange(index, e)}
+                />
+              </div>
+
+            </div>
+          ))}
+          <button
+            onClick={() =>
+              setEducationList([
+                ...educationList,
+                {
                   school: "",
                   degree: "",
                   location: "",
                   startDate: "",
                   endDate: "",
-                })
-              }
-            />
-          </div>
-
-          <Input
-            label="School / University Name"
-            name="school"
-            value={education.school}
-            onChange={handleEducationChange}
-          />
-          <Input
-            label="Degree"
-            name="degree"
-            value={education.degree}
-            onChange={handleEducationChange}
-          />
-          <Input
-            label="Location"
-            name="location"
-            value={education.location}
-            onChange={handleEducationChange}
-          />
-          <Input
-            label="Start Date"
-            name="startDate"
-            type="date"
-            value={education.startDate}
-            onChange={handleEducationChange} />
-          <Input
-            label="End Date"
-            name="endDate"
-            type="date"
-            value={education.endDate}
-            onChange={handleEducationChange} />
+                },
+              ])
+            }
+          >
+            Add Education
+          </button>
           <div className="section-header">
             <SectionHeader title="Experience" />
             <ClearButton
@@ -242,20 +279,22 @@ const App = () => {
             name="location"
             value={experience.location}
             onChange={handleExperienceChange} />
+          <div className="date-section">
+            <Input
+              label="Start Date"
+              name="startDate"
+              type="date"
+              value={experience.startDate}
+              onChange={handleExperienceChange} />
 
-          <Input
-            label="Start Date"
-            name="startDate"
-            type="date"
-            value={experience.startDate}
-            onChange={handleExperienceChange} />
+            <Input
+              label="End Date"
+              name="endDate"
+              type="date"
+              value={experience.endDate}
+              onChange={handleExperienceChange} />
+          </div>
 
-          <Input
-            label="End Date"
-            name="endDate"
-            type="date"
-            value={experience.endDate}
-            onChange={handleExperienceChange} />
 
           <Input
             label="Description"
@@ -287,18 +326,23 @@ const App = () => {
           {hasEducationData && (
             <div className='preview-education'>
               <h4 className='preview-section-header'>Education</h4>
-              <div className='preview-ed-data'>
-                <div className='preview-ed-left'>
-                  <p className='preview-ed-school'>{education.school}</p>
-                  <p className='preview-ed-degree'>{education.degree}</p>
-                </div>
-                <div className='preview-ed-right'>
-                  <p>
-                    {formatDateRange(education.startDate, education.endDate)}
-                    {education.location && ` | ${education.location}`}
-                  </p>
-                </div>
-              </div>
+              {educationList.map((edu, index) => (
+                (edu.school || edu.degree) && (
+                  <div key={index} className="preview-ed-data">
+                    <div className="preview-ed-left">
+                      <p className="preview-ed-school">{edu.school}</p>
+                      <p className="preview-ed-degree">{edu.degree}</p>
+                    </div>
+
+                    <div className="preview-ed-right">
+                      <p>
+                        {formatDateRange(edu.startDate, edu.endDate)}
+                        {edu.location && ` | ${edu.location}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              ))}
 
             </div>
           )}
