@@ -129,7 +129,11 @@ const App = () => {
 
   return (
     <div>
-      <h1>CV Builder App</h1>
+      <div className="header-section">
+        <h1>CV Builder App</h1>
+        <button className='download-btn'>Download CV</button>
+      </div>
+
       <div className="container">
         <div className="form-section">
           <div className="section-header">
