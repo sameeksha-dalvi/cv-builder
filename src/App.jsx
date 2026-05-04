@@ -30,6 +30,15 @@ const ClearButton = ({ onClick }) => {
   );
 };
 
+const AddButton = ({label, onClick}) =>{
+  return (
+    <button className="add-btn" onClick={onClick}>
+            {label}
+    </button>
+  )
+}
+
+
 const App = () => {
 
   const [personalInfo, setPersonalInfo] = useState({
@@ -268,8 +277,8 @@ const App = () => {
 
             </div>
           ))}
-          <button
-            className="add-btn"
+          <AddButton
+            label="Add Education"
             onClick={() =>
               setEducationList([
                 ...educationList,
@@ -282,9 +291,7 @@ const App = () => {
                 },
               ])
             }
-          >
-            Add Education
-          </button>
+          />
           <div className="section-header">
             <SectionHeader title="Experience" />
             <ClearButton
@@ -382,8 +389,8 @@ const App = () => {
               />
             </div>
           ))}
-          <button
-            className="add-btn"
+          <AddButton
+            label="Add Experience"
             onClick={() =>
               setExperienceList([
                 ...experienceList,
@@ -397,9 +404,7 @@ const App = () => {
                 },
               ])
             }
-          >
-            Add Experience
-          </button>
+          />
           <div className="section-header">
             <SectionHeader title="Skills" />
             <ClearButton onClick={() => setSkills("")} />
