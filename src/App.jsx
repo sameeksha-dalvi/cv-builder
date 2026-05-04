@@ -93,6 +93,16 @@ const App = () => {
 
   const [skills, setSkills] = useState("");
 
+  const [projectList, setProjectList] = useState([
+    {
+      name: "",
+      techStack: "",
+      description: "",
+      githubLink: "",
+      liveLink: "",
+    },
+  ]);
+
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
 
@@ -120,6 +130,15 @@ const App = () => {
     updatedList[index][name] = value;
 
     setExperienceList(updatedList);
+  };
+
+  const handleProjectChange = (index, e) => {
+    const { name, value } = e.target;
+
+    const updatedList = [...projectList];
+    updatedList[index][name] = value;
+
+    setProjectList(updatedList);
   };
 
   const formatDate = (date) => {
@@ -150,6 +169,10 @@ const App = () => {
 
   const hasExperienceData = experienceList.some(
     (exp) => exp.company || exp.role
+  );
+
+  const hasProjectData = projectList.some(
+    (project) => project.name
   );
 
   const skillsList = skills.split(",").map(skill => skill.trim()).filter(Boolean);
@@ -209,6 +232,97 @@ const App = () => {
             value={personalInfo.linkedInUrl}
             onChange={handlePersonalInfoChange}
           />
+
+          <div className="section-header">
+            <SectionHeader title="Projects" />
+            <ClearButton
+              onClick={() =>
+                setProjectList([
+                  {
+                    name: "",
+                    techStack: "",
+                    description: "",
+                    githubLink: "",
+                    liveLink: "",
+                  },
+                ])
+              }
+            />
+          </div>
+          {projectList.map((project, index) => (
+            <SectionItem
+              key={index}
+              showRemove={projectList.length > 1}
+              onRemove={() => {
+                let newList = [...projectList];
+
+                newList.splice(index, 1); // remove the clicked item
+
+                if (newList.length === 0) {
+                  newList = [
+                    {
+                      name: "",
+                      techStack: "",
+                      description: "",
+                      githubLink: "",
+                      liveLink: "",
+                    },
+                  ];
+                }
+
+                setProjectList(newList);
+              }}
+            >
+              <Input
+                label="Project Name"
+                name="name"
+                value={project.name}
+                onChange={(e) => handleProjectChange(index, e)}
+              />
+
+              <Input
+                label="Tech Stack"
+                name="techStack"
+                value={project.techStack}
+                onChange={(e) => handleProjectChange(index, e)}
+              />
+
+              <Input
+                label="Description"
+                name="description"
+                value={project.description}
+                onChange={(e) => handleProjectChange(index, e)}
+              />
+              <Input
+                label="Github Link"
+                name="githubLink"
+                value={project.githubLink}
+                onChange={(e) => handleProjectChange(index, e)}
+              />
+              <Input
+                label="Live Link"
+                name="liveLink"
+                value={project.liveLink}
+                onChange={(e) => handleProjectChange(index, e)}
+              />
+            </SectionItem>
+          ))}
+          <AddButton
+            label="Add Project"
+            onClick={() =>
+              setProjectList([
+                ...projectList,
+                {
+                  name: "",
+                  techStack: "",
+                  description: "",
+                  githubLink: "",
+                  liveLink: "",
+                },
+              ])
+            }
+          />
+
           <div className="section-header">
             <SectionHeader title="Education" />
             <ClearButton
