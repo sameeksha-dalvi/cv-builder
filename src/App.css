@@ -364,14 +364,21 @@ p {
   font-size: 12px;
 }
 
-.preview-proj-links a,.preview-contact a {
+.preview-proj-links a,
+.preview-contact a {
   text-decoration: none;
   color: var(--color-text);
 }
 
-.preview-proj-links a:hover,.preview-contact a {
+.preview-proj-links a:hover,
+.preview-contact a {
   text-decoration: underline;
 }
+
+.download-icon {
+  display: none;
+}
+
 
 @media print {
   body {
@@ -403,8 +410,62 @@ p {
 }
 
 @media (max-width: 600px) {
+
+  /* Container fix */
   .container {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  h1,
+  .preview-header {
+    font-size: 20px;
+  }
+
+  h3,
+  .preview-section-header {
+    font-size: 18px;
+  }
+
+  .download-btn {
+    font-size: 14px;
+  }
+
+  .date-section {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
+
+  .preview-section {
+    max-height: 400px; 
+    overflow-y: auto;
+  }
+  .preview-proj-name,.preview-ed-school,.preview-exp-role{
+    font-size: 14px;
+  }
+
+  .preview-contact>p ,.preview-ed-right>p,.preview-exp-right>p{
+    font-size: 12px;
+  }
+
+   .download-text {
+    display: none;
+  }
+
+  .download-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
