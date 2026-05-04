@@ -38,6 +38,17 @@ const AddButton = ({label, onClick}) =>{
   )
 }
 
+const RemoveButton = ({onClick}) => {
+  return(
+    <button className="remove-btn" onClick={onClick}>
+      Remove
+    </button>
+  )
+}
+
+
+
+
 
 const App = () => {
 
@@ -210,8 +221,8 @@ const App = () => {
             <div key={index} className="section-item">
               <div className="section-actions">
                 {educationList.length > 1 && (
-                  <button
-                    className="remove-btn"
+                  <RemoveButton
+                  
                     onClick={() => {
                       let newList = [...educationList];
 
@@ -231,9 +242,7 @@ const App = () => {
 
                       setEducationList(newList);
                     }}
-                  >
-                    Remove
-                  </button>
+                  />
                 )}
 
               </div>
@@ -315,8 +324,7 @@ const App = () => {
 
               <div className="section-actions">
                 {experienceList.length > 1 && (
-                  <button
-                    className="remove-btn"
+                  <RemoveButton
                     onClick={() => {
                       let newList = [...experienceList];
                       newList.splice(index, 1);// remove the clicked item
@@ -336,9 +344,7 @@ const App = () => {
 
                       setExperienceList(newList);
                     }}
-                  >
-                    Remove
-                  </button>
+                  />
                 )}
               </div>
 
