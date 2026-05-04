@@ -65,6 +65,7 @@ const App = () => {
     firstName: "",
     lastName: "",
     contactNum: "",
+    emailId: "",
     githubUrl: "",
     linkedInUrl: "",
   });
@@ -195,6 +196,7 @@ const App = () => {
                 setPersonalInfo({
                   firstName: "",
                   lastName: "",
+                  emailId: "",
                   contactNum: "",
                   githubUrl: "",
                   linkedInUrl: "",
@@ -218,6 +220,12 @@ const App = () => {
             label="Contact Number"
             name="contactNum"
             value={personalInfo.contactNum}
+            onChange={handlePersonalInfoChange}
+          />
+          <Input
+            label="Email"
+            name="emailId"
+            value={personalInfo.emailId}
             onChange={handlePersonalInfoChange}
           />
           <Input
@@ -542,9 +550,56 @@ const App = () => {
           </div>
           <div className='preview-contact'>
             <p>{personalInfo.contactNum}</p>
-            <p>{personalInfo.githubUrl}</p>
-            <p>{personalInfo.linkedInUrl}</p>
+            <p>{personalInfo.emailId}</p>
+            <p>{personalInfo.githubUrl && (
+              <a href={personalInfo.githubUrl} target="_blank">
+                Github
+              </a>
+            )}</p>
+            <p>{personalInfo.linkedInUrl && (
+              <a href={personalInfo.linkedInUrl} target="_blank">
+                LinkedIn
+              </a>
+            )}</p>
           </div>
+          {hasProjectData && (
+            <div className="preview-projects">
+              <h4 className="preview-section-header">Projects</h4>
+
+              {projectList.map((proj, index) => (
+                (proj.name || proj.description) && (
+                  <div key={index} className="preview-proj-data">
+
+                    <div className="preview-proj-left">
+                      <p className="preview-proj-name">{proj.name}</p>
+
+                      {proj.techStack && (
+                        <p className="preview-proj-tech">{proj.techStack}</p>
+                      )}
+
+                      {proj.description && (
+                        <p className="preview-proj-desc">{proj.description}</p>
+                      )}
+
+                      <div className="preview-proj-links">
+                        {proj.githubLink && (
+                          <a href={proj.githubLink} target="_blank">
+                            GitHub
+                          </a>
+                        )}
+                        {proj.liveLink && (
+                          <a href={proj.liveLink} target="_blank">
+                            Live
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                  </div>
+                )
+              ))}
+            </div>
+          )}
           {hasEducationData && (
             <div className='preview-education'>
               <h4 className='preview-section-header'>Education</h4>
