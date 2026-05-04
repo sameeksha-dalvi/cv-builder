@@ -1,80 +1,15 @@
-import { Children, useState } from 'react'
+import { useState } from 'react'
 
 import './App.css'
-const Input = ({ label, name, value, onChange, type = "text" }) => {
-  //console.log("Input value :", { value });
-  return (
-    <>
-      <label>{label}</label>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-    </>
+import Input from "./components/Input";
+import SectionHeader from "./components/SectionHeader";
+import ClearButton from "./components/ClearButton";
+import AddButton from "./components/AddButton";
+import RemoveButton from "./components/RemoveButton";
+import SectionItem from "./components/SectionItem";
+import DownloadIcon from "./components/DownloadIcon";
 
-  )
-}
 
-const SectionHeader = ({ title }) => {
-  return (
-    <><h3>{title}</h3></>
-  )
-}
-
-const ClearButton = ({ onClick }) => {
-  return (
-    <button className="clear-btn" onClick={onClick}>
-      Clear All
-    </button>
-  );
-};
-
-const AddButton = ({ label, onClick }) => {
-  return (
-    <button className="add-btn" onClick={onClick}>
-      {label}
-    </button>
-  )
-}
-
-const RemoveButton = ({ onClick }) => {
-  return (
-    <button className="remove-btn" onClick={onClick}>
-      Remove
-    </button>
-  )
-}
-
-const SectionItem = ({ children, onRemove, showRemove }) => {
-  return (
-    <div className="section-item">
-      <div className="section-actions">
-        {showRemove && <RemoveButton onClick={onRemove} />}
-      </div>
-      {children}
-    </div>
-  )
-}
-
-const DownloadIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    viewBox="0 0 24 24"
-  >
-    <path d="M12 3v12" />
-    <path d="M7 10l5 5 5-5" />
-    <path d="M5 21h14" />
-  </svg>
-);
 
 const App = () => {
 
