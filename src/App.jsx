@@ -1,4 +1,5 @@
 import { Children, useState } from 'react'
+
 import './App.css'
 const Input = ({ label, name, value, onChange, type = "text" }) => {
   //console.log("Input value :", { value });
@@ -180,11 +181,12 @@ const App = () => {
 
   const hasSkills = skillsList.length > 0;
 
+
   return (
     <div>
       <div className="header-section">
         <h1>CV Builder App</h1>
-        <button className='download-btn'>Download CV</button>
+        <button className='download-btn' onClick={() => window.print()}>Download CV</button>
       </div>
 
       <div className="container">

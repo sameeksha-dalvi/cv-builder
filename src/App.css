@@ -373,7 +373,34 @@ p {
   text-decoration: underline;
 }
 
+@media print {
+  body {
+    margin: 0;
+    background: white;
+  }
 
+  .container {
+    display: block;
+    height: auto;
+  }
+
+  .form-section {
+    display: none;
+  }
+
+  .preview-section {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+
+  .header-section {
+    display: none;
+  }
+}
 
 @media (max-width: 600px) {
   .container {
