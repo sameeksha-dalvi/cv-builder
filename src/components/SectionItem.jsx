@@ -1,3 +1,5 @@
+import RemoveButton from "../components/RemoveButton";
+
 const SectionItem = ({ children, onRemove, showRemove }) => {
   return (
     <div className="section-item">
