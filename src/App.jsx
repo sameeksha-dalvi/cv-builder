@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Children, useState } from 'react'
 import './App.css'
 const Input = ({ label, name, value, onChange, type = "text" }) => {
   //console.log("Input value :", { value });
@@ -30,23 +30,32 @@ const ClearButton = ({ onClick }) => {
   );
 };
 
-const AddButton = ({label, onClick}) =>{
+const AddButton = ({ label, onClick }) => {
   return (
     <button className="add-btn" onClick={onClick}>
-            {label}
+      {label}
     </button>
   )
 }
 
-const RemoveButton = ({onClick}) => {
-  return(
+const RemoveButton = ({ onClick }) => {
+  return (
     <button className="remove-btn" onClick={onClick}>
       Remove
     </button>
   )
 }
 
-
+const SectionItem = ({ children, onRemove, showRemove }) => {
+  return (
+    <div className="section-item">
+      <div className="section-actions">
+        {showRemove && <RemoveButton onClick={onRemove} />}
+      </div>
+      {children}
+    </div>
+  )
+}
 
 
 
@@ -218,34 +227,29 @@ const App = () => {
           </div>
 
           {educationList.map((edu, index) => (
-            <div key={index} className="section-item">
-              <div className="section-actions">
-                {educationList.length > 1 && (
-                  <RemoveButton
-                  
-                    onClick={() => {
-                      let newList = [...educationList];
+            <SectionItem
+              key={index}
+              showRemove={educationList.length > 1}
+              onRemove={() => {
+                let newList = [...educationList];
 
-                      newList.splice(index, 1); // remove the clicked item
+                newList.splice(index, 1); // remove the clicked item
 
-                      if (newList.length === 0) {
-                        newList = [
-                          {
-                            school: "",
-                            degree: "",
-                            location: "",
-                            startDate: "",
-                            endDate: "",
-                          },
-                        ];
-                      }
+                if (newList.length === 0) {
+                  newList = [
+                    {
+                      school: "",
+                      degree: "",
+                      location: "",
+                      startDate: "",
+                      endDate: "",
+                    },
+                  ];
+                }
 
-                      setEducationList(newList);
-                    }}
-                  />
-                )}
-
-              </div>
+                setEducationList(newList);
+              }}
+            >
               <Input
                 label="School / University Name"
                 name="school"
@@ -283,8 +287,7 @@ const App = () => {
                   onChange={(e) => handleEducationChange(index, e)}
                 />
               </div>
-
-            </div>
+            </SectionItem>
           ))}
           <AddButton
             label="Add Education"
@@ -320,34 +323,29 @@ const App = () => {
           </div>
 
           {experienceList.map((exp, index) => (
-            <div key={index} className="section-item">
+            <SectionItem
+              key={index}
+              showRemove={experienceList.length > 1}
+              onRemove={() => {
+                let newList = [...experienceList];
+                newList.splice(index, 1);// remove the clicked item
 
-              <div className="section-actions">
-                {experienceList.length > 1 && (
-                  <RemoveButton
-                    onClick={() => {
-                      let newList = [...experienceList];
-                      newList.splice(index, 1);// remove the clicked item
+                if (newList.length === 0) {
+                  newList = [
+                    {
+                      company: "",
+                      role: "",
+                      location: "",
+                      startDate: "",
+                      endDate: "",
+                      description: "",
+                    },
+                  ];
+                }
 
-                      if (newList.length === 0) {
-                        newList = [
-                          {
-                            company: "",
-                            role: "",
-                            location: "",
-                            startDate: "",
-                            endDate: "",
-                            description: "",
-                          },
-                        ];
-                      }
-
-                      setExperienceList(newList);
-                    }}
-                  />
-                )}
-              </div>
-
+                setExperienceList(newList);
+              }}
+            >
               <Input
                 label="Company"
                 name="company"
@@ -393,7 +391,7 @@ const App = () => {
                 value={exp.description}
                 onChange={(e) => handleExperienceChange(index, e)}
               />
-            </div>
+            </SectionItem>
           ))}
           <AddButton
             label="Add Experience"
